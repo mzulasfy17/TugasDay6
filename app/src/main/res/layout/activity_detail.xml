@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DetailActivity"
-    android:background="@color/white"
+    android:background="@drawable/back3"
     android:orientation="vertical">
 
 <ImageView
@@ -52,6 +52,7 @@
           android:layout_height="wrap_content"
           android:textSize="15dp"
           android:text="Jikoshoukai"
+          android:textColor="@color/black"
           android:padding="3dp"/>
   </LinearLayout>
 

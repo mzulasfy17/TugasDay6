@@ -72,13 +72,28 @@ public class DetailActivity extends AppCompatActivity {
         hobbyTextView.setText(currentItem.getHobby());
 
         btnshare.setOnClickListener(click -> {
-
+            Uri imageUri = getImageUri(Foto);
             Intent intent1 = new Intent(Intent.ACTION_SEND);
             intent1.setType("text/plain");
-            String shareMessage ="NamaMember : " + currentItem.getNamaMember() ;
+            String shareMessage ="Nama : " + currentItem.getNamaMember() + "\n Generasi : " + currentItem.getGenerasi() + "\n Jikoshoukai : " + currentItem.getJiko() + "\n fullname : " + currentItem.getFullname() + "\n birthday : " + currentItem.getBirthday() + "\n birthplace : " + currentItem.getBirthplace() + "\n Blood Type : " + currentItem.getBlood() + "\n Hobby : " + currentItem.getHobby();
             intent1.putExtra(Intent.EXTRA_TEXT, shareMessage);
+            intent1.putExtra(Intent.EXTRA_STREAM, imageUri);
             intent1.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             startActivity(Intent.createChooser(intent1, "Bagikan melalui"));
         });
+    }
+    private Uri getImageUri(ImageView imageView) {
+        Uri imageUri;
+        try {
+            // Mendapatkan URI gambar dari ImageView
+            BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
+            Bitmap bitmap = drawable.getBitmap();
+            String path = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "Title", null);
+            imageUri = Uri.parse(path);
+        } catch (Exception e) {
+            e.printStackTrace();
+            imageUri = null;
+        }
+        return imageUri;
     }
 }
